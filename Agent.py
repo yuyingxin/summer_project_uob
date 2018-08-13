@@ -3,14 +3,15 @@ import random
 
 
 class Agent:
-    def __init__(self, group, emotion, entity=None, relevance=None):
+    def __init__(self, group, emotionLevel, title, imagePath):
+        # emotion = group
         self.location = PVector(random.randint(0, width), random.randint(0, height))
         self.acceleration = PVector(0, 0)
         self.velocity = PVector(0, -2)
-        if emotion == 0:                    # Sadness: slower
+        if group == 0:                    # Sadness: slower
             self.max_speed = 1
             self.max_force = 0.008
-        elif emotion == 1 or emotion == 4:  # Joy or anger: faster
+        elif group == 1 or group == 4:  # Joy or anger: faster
             self.max_speed = 3
             self.max_force = 0.04
         else:                               # Fear or disgust: normal
@@ -18,9 +19,11 @@ class Agent:
             self.max_force = 0.012
         self.radius = 8.0
         self.group = group
-        self.emotion = emotion
-        self.text = entity
-        self.relevance = map(relevance, 0, 1, 0, 255)
+        self.emotion = group
+        self.emotionLevel = map(emotionLevel, 0, 1, 0, 255)
+        self.title = title
+        self.imagePath = imagePath
+
         # Choose color
         col_blue = (120, 225, 255)  # sadness
         col_orange = (255, 167, 0)  # joy
@@ -31,10 +34,9 @@ class Agent:
         self.r = palette[self.emotion][0]
         self.g = palette[self.emotion][1]
         self.b = palette[self.emotion][2]
-        self.color = color(self.r, self.g, self.b, self.relevance)
+        self.color = color(self.r, self.g, self.b, self.emotionLevel)
         self.groupCenter = self.location
 
-        # self.color = color(100, 100)
 
     def update(self):
         self.location.add(self.velocity)
@@ -239,40 +241,23 @@ class Agent:
             self.velocity.y = -1 * self.velocity.y
             # print("4444")
 
-    def detailDisplay(self, myMouse=None, imagePaths=None, titles=None, wList=None, hList=None):
+    def detailDisplay(self, myMouse=None):
         fill(100)
-        if myMouse is None:
-            text(self.text, self.location.x, self.location.y)
-        else:
-            # Magnify the radius for easier pointing for text display
-            r = self.radius * 3
-            # Display text when mouse is close to agents
-            if self.location.x - r < myMouse.x < self.location.x + r and self.location.y - r < myMouse.y < \
-                    self.location.y + r:
-                text(self.text, self.location.x, self.location.y)
-                if imagePaths is not None:
-                    img = loadImage(imagePaths[self.group])
-                    imageMode(CENTER)
-                    image(img, width/2, height/2)
-                    strokeWeight(1.5)
-                    stroke(self.color)
-                    line(self.location.x, self.location.y, width/2-wList[self.group]/2, height/2-hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2+wList[self.group]/2, height/2-hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2-wList[self.group]/2, height/2+hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2+wList[self.group]/2, height/2+hList[self.group]/2)
-                    noStroke()
-                    textAlign(CENTER, TOP)
-                    fill(color(self.r, self.g, self.b))
-                    text(titles[self.group], width/2, height/2+hList[self.group]/2)
-
-
-
-
-
-
-
-
-
-
-
+        # Magnify the radius for easier pointing for text display
+        r = self.radius * 2
+        # Display text when mouse is close to agents
+        if self.location.x-r < myMouse.x < self.location.x+r and self.location.y-r < myMouse.y < self.location.y+r:
+            img = loadImage(self.imagePath)
+            imageMode(CENTER)
+            image(img, width/2, height/2)
+            strokeWeight(1.5)
+            stroke(self.color)
+            line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
+            line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
+            line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
+            line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
+            noStroke()
+            textAlign(CENTER, TOP)
+            fill(color(self.r, self.g, self.b))
+            text(self.title, width/2, height/2+img.height/2)
 

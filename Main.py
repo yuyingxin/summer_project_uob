@@ -20,15 +20,6 @@ class SubInterface(Interface):
         run()
 
 
-def keyPressed():
-    global isTextFollowing, isImageShowing
-    if key.char == 't' or key.char == 'T':
-        isTextFollowing = not isTextFollowing
-    if key.char == 'i' or key.char == 'I':
-        isImageShowing = not isImageShowing
-        print(isImageShowing)
-
-
 def mousePressed():
     global isPlaying
     isPlaying = not isPlaying
@@ -50,16 +41,14 @@ def setup():
                                                                                 dateTo)
 
     # Compress images
-    imageWidths, imageHeights = compressImage(imagePaths)
+    compressImage(imagePaths)
 
     #  Parsing the responses
-    groupSizes, emotionIndex, emotionCount = paramExtract(entityList, emotionList)
+    groupSizes, emotionIndex, emotionCount, emotionLevel = paramExtract(entityList, emotionList)
 
-    for i in range(0, len(groupSizes)):
-        for j in range(0, groupSizes[i]):
-            agent = Agent(i, emotionIndex[i], entityList[i][j], relevanceList[i][j])
-            agents.append(agent)
-    # frameRate(2)
+    for i in range(0, articleNum):
+        agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i])
+        agents.append(agent)
 
 
 def draw():
@@ -75,26 +64,14 @@ def draw():
     if not isPlaying:
         for i in range(0, len(agents)):
             agents[i].display()
-            if isTextFollowing:
-                agents[i].textDisplay()
-            else:
-                agents[i].textDisplay(myMouse)
+            agents[i].detailDisplay(myMouse=myMouse)
     else:
         for i in range(0, len(agents)):
             agents[i].applyBehaviour(agents, myMouse)
             agents[i].borders()
             agents[i].update()
             agents[i].display()
-            # Control the level of info display by keypress
-            if isTextFollowing and not isImageShowing:
-                agents[i].detailDisplay()
-            elif not isTextFollowing and not isImageShowing:
-                agents[i].detailDisplay(myMouse=myMouse)
-            elif isTextFollowing and isImageShowing:
-                agents[i].detailDisplay(imagePaths=imagePaths, titles=titles)
-            else:
-                agents[i].detailDisplay(myMouse=myMouse, imagePaths=imagePaths, titles=titles, wList=imageWidths,
-                                        hList=imageHeights)
+            agents[i].detailDisplay(myMouse=myMouse)
 
 
 if __name__ == '__main__':

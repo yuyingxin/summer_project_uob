@@ -14,15 +14,15 @@ from PIL import Image
 def labelDisplay(emotionCount):
     textSize(12)
     fill(120, 225, 255)
-    text("Sadness: {0}".format(emotionCount[0]), 5, 15)
+    text("Sadness: {0}".format(emotionCount[0]), 20, 15)
     fill(255, 167, 0)
-    text("Joy: {0}".format(emotionCount[1]), 5, 30)
+    text("Joy: {0}".format(emotionCount[1]), 20, 30)
     fill(0, 0, 0)
-    text("Fear: {0}".format(emotionCount[2]), 5, 45)
+    text("Fear: {0}".format(emotionCount[2]), 20, 45)
     fill(141, 85, 36)
-    text("Disgust: {0}".format(emotionCount[3]), 5, 60)
+    text("Disgust: {0}".format(emotionCount[3]), 20, 60)
     fill(214, 45, 32)
-    text("Anger: {0}".format(emotionCount[4]), 5, 75)
+    text("Anger: {0}".format(emotionCount[4]), 20, 75)
 
 
 def getNews(articleNum, dateFrom, dateTo):
@@ -66,6 +66,7 @@ def parsingEmotion(response):
                    float(response[i]['emotion']['document']['emotion']['anger'])]
         # emotion.index(max(emotion)) # return the max score of emotion
         emotionList.append(emotion)
+
     # print(emotionList)
     return emotionList
 
@@ -97,22 +98,6 @@ def nluInit():
 
 
 def textAnalyse(url, entityNum, natural_language_understanding):
-    # responseList = []
-    # Text processing by IBM api via url
-    # Set up request (IBM api)
-
-    # Requesting
-    # for i in range(0, len(urls)):
-    #     response = natural_language_understanding.analyze(
-    #         url=urls[i],
-    #         features=Features(entities=EntitiesOptions(
-    #             sentiment=False,
-    #             emotion=False,
-    #             limit=entityNum
-    #         ), emotion=EmotionOptions()
-    #                           )
-    #     )
-    #     responseList.append(response)
 
     response = natural_language_understanding.analyze(
         url=url,
@@ -163,38 +148,39 @@ def featureExtract(natural_language_understanding, articleNum, entityNum, dateFr
                  for i in range(0, articleNum)]
     print("Time cost on text analyse:" + str(datetime.datetime.now() - t))  # Print the time cost
 
+    # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
-    textList, relevanceList = parsingEntities(responses)
-    return emotionList, textList, relevanceList, paths, titles
+    # entityList: 2-d list, each list inside is an article and elements inside is the text of entity
+    enetityList, relevanceList = parsingEntities(responses)
+    return emotionList, enetityList, relevanceList, paths, titles
 
 
 def paramExtract(entityList, emotionList):
     groupSizes = []
     emotionIndex = []
     emotionCount = []
+    emotionLevel = []  # EmotionLevel represents the weight of domain emotion
 
-    for i in range(0, len(entityList)):
+    for i in range(0, len(entityList)):  # len(entityList) is actually the number of articles
         groupSizes.append(len(entityList[i]))  # How many entities in each article (group)
-        emotionIndex.append(emotionList[i].index(max(emotionList[i])))  # Find the domain emotion in each article
+        index = emotionList[i].index(max(emotionList[i]))
+        emotionIndex.append(index)  # Find the domain emotion in each article
+        level = max(emotionList[i]) / sum(emotionList[i])
+        emotionLevel.append(level)
 
     for i in range(0, 5):  # 5: the number of emotion
         emotionCount.append(emotionIndex.count(i))
 
-    return groupSizes, emotionIndex, emotionCount
+    return groupSizes, emotionIndex, emotionCount, emotionLevel
 
 
 def compressImage(imagePaths):
-    wList = []
-    hList = []
     for path in imagePaths:
         img = Image.open(path)
         w, h = img.size
         if w > 200:
             h *= (200 / w)
             w = 200
-        wList.append(w)
-        hList.append(int(h))
         dImg = img.resize((w, int(h)), Image.ANTIALIAS)
         dImg.save(path)
-    return wList, hList
 
