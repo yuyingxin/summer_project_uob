@@ -108,7 +108,7 @@ class Interface(QWidget):
         :return: None
         """
         shutil.rmtree("downloads")
-        os.mkdir("downloads")
+        os.rmdir("downloads")
 
 
 if __name__ == '__main__':

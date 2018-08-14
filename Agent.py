@@ -241,23 +241,34 @@ class Agent:
             self.velocity.y = -1 * self.velocity.y
             # print("4444")
 
-    def detailDisplay(self, myMouse=None):
+    def detailDisplay(self, myMouse, agents):
         fill(100)
+        if self.isClosed(myMouse):
+            dists = [dist(self.location.x, self.location.y, myMouse.x, myMouse.y)]
+            for other in agents:
+                if other.isClosed(myMouse):
+                    dists.append(dist(other.location.x, other.location.y, myMouse.x, myMouse.y))
+            if dists.index(max(dists)) == 0:
+                img = loadImage(self.imagePath)
+                imageMode(CENTER)
+                image(img, width/2, height/2)
+                strokeWeight(1.5)
+                stroke(self.color)
+                line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
+                line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
+                line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
+                line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
+                noStroke()
+                textAlign(CENTER, TOP)
+                fill(color(self.r, self.g, self.b))
+                text(self.title, width/2, height/2+img.height/2)
+                textAlign(LEFT, BASELINE)
+
+    def isClosed(self, myMouse):
         # Magnify the radius for easier pointing for text display
         r = self.radius * 2
-        # Display text when mouse is close to agents
+        # Whether agent is closed to mouse
         if self.location.x-r < myMouse.x < self.location.x+r and self.location.y-r < myMouse.y < self.location.y+r:
-            img = loadImage(self.imagePath)
-            imageMode(CENTER)
-            image(img, width/2, height/2)
-            strokeWeight(1.5)
-            stroke(self.color)
-            line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
-            line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
-            line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
-            line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
-            noStroke()
-            textAlign(CENTER, TOP)
-            fill(color(self.r, self.g, self.b))
-            text(self.title, width/2, height/2+img.height/2)
-
+            return True
+        else:
+            return False

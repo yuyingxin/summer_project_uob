@@ -14,15 +14,15 @@ from PIL import Image
 def labelDisplay(emotionCount):
     textSize(12)
     fill(120, 225, 255)
-    text("Sadness: {0}".format(emotionCount[0]), 20, 15)
+    text("Sadness: {0}".format(emotionCount[0]), 5, 15)
     fill(255, 167, 0)
-    text("Joy: {0}".format(emotionCount[1]), 20, 30)
+    text("Joy: {0}".format(emotionCount[1]), 5, 30)
     fill(0, 0, 0)
-    text("Fear: {0}".format(emotionCount[2]), 20, 45)
+    text("Fear: {0}".format(emotionCount[2]), 5, 45)
     fill(141, 85, 36)
-    text("Disgust: {0}".format(emotionCount[3]), 20, 60)
+    text("Disgust: {0}".format(emotionCount[3]), 5, 60)
     fill(214, 45, 32)
-    text("Anger: {0}".format(emotionCount[4]), 20, 75)
+    text("Anger: {0}".format(emotionCount[4]), 5, 75)
 
 
 def getNews(articleNum, dateFrom, dateTo):
@@ -113,8 +113,11 @@ def textAnalyse(url, entityNum, natural_language_understanding):
 
 
 def downloader(url, index):
+    path = 'downloads'
+    if not os.path.exists(path):
+        os.mkdir(path)
     fileName = str(index).zfill(3) + '.jpg'
-    path = '{}{}{}'.format('downloads', os.sep, fileName)
+    path = '{}{}{}'.format(path, os.sep, fileName)
     urllib.request.urlretrieve(url, path)
     return path
 

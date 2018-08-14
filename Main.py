@@ -64,14 +64,14 @@ def draw():
     if not isPlaying:
         for i in range(0, len(agents)):
             agents[i].display()
-            agents[i].detailDisplay(myMouse=myMouse)
+            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
     else:
         for i in range(0, len(agents)):
             agents[i].applyBehaviour(agents, myMouse)
             agents[i].borders()
             agents[i].update()
             agents[i].display()
-            agents[i].detailDisplay(myMouse=myMouse)
+            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
 
 
 if __name__ == '__main__':
