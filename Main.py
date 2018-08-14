@@ -77,9 +77,9 @@ def draw():
         elif not isTextFollowing and not isImageShowing:
             agents[i].detailDisplay(myMouse=myMouse)
         elif isTextFollowing and isImageShowing:
-            agents[i].detailDisplay(imagePaths=imagePaths, titles=titles)
+            agents[i].detailDisplay(imagePaths=imagePaths, titles=titles, agents=agents)
         else:
-            agents[i].detailDisplay(myMouse=myMouse, imagePaths=imagePaths, titles=titles)
+            agents[i].detailDisplay(myMouse=myMouse, imagePaths=imagePaths, titles=titles, agents=agents)
 
         agents[i].display()
         if isPlaying:

@@ -34,8 +34,6 @@ class Agent:
         self.color = color(self.r, self.g, self.b, self.relevance)
         self.groupCenter = self.location
 
-        # self.color = color(100, 100)
-
     def update(self):
         self.location.add(self.velocity)
         self.velocity.add(self.acceleration)
@@ -140,8 +138,9 @@ class Agent:
                     sumLoc.add(other.location)
                     sumVel.add(other.velocity)
                     friendNum += 1
-                    stroke(100, 30)
-                    line(self.location.x, self.location.y, other.location.x, other.location.y)
+                    # Display the connected line
+                    # stroke(100, 30)
+                    # line(self.location.x, self.location.y, other.location.x, other.location.y)
                     noStroke()
                 # if 0 < d < neighbourDist:
                     # If they are neighbours, calculate the center and average velocity of neighbours
@@ -239,41 +238,45 @@ class Agent:
             self.velocity.y = -1 * self.velocity.y
             # print("4444")
 
-    def detailDisplay(self, myMouse=None, imagePaths=None, titles=None):
+    def detailDisplay(self, myMouse=None, imagePaths=None, titles=None, agents=None):
         fill(100)
         if myMouse is None:
+            # When myMouse is not passed, text follows the agent
             text(self.text, self.location.x, self.location.y)
         else:
-            # Magnify the radius for easier pointing for text display
-            r = self.radius * 3
-            # Display text when mouse is close to agents
-            if self.location.x - r < myMouse.x < self.location.x + r and self.location.y - r < myMouse.y < \
-                    self.location.y + r:
+            if self.isClosed(myMouse):
+                # If myMouse is passed and agent is close to mouse, display the text
                 text(self.text, self.location.x, self.location.y)
                 if imagePaths is not None:
-                    img = loadImage(imagePaths[self.group])
-                    imageMode(CENTER)
-                    image(img, width/2, height/2)
-                    strokeWeight(1.5)
-                    stroke(self.color)
-                    line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
-                    line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
-                    line(self.location.x, self.location.y, width/2-img.width/2, height/2+img.height/2)
-                    line(self.location.x, self.location.y, width/2+img.width/2, height/2+img.height/2)
-                    noStroke()
-                    textAlign(CENTER, TOP)
-                    fill(color(self.r, self.g, self.b))
-                    text(titles[self.group], width/2, height/2+img.height/2)
-                    textAlign(LEFT, BASELINE)
+                    # If imagePaths is passed, show details info, compute the distance to let the closest one to display
+                    dists = [dist(myMouse.x, myMouse.y, self.location.x, self.location.y)]
+                    for other in agents:
+                        if other.isClosed(myMouse):
+                            # If there are other agent close to mouse at the same time, find the closest one
+                            dists.append(dist(myMouse.x, myMouse.y, other.location.x, other.location.y))
+                    if dists.index(max(dists)) == 0:
+                        # If agent is the closest one, display its detail info
+                        img = loadImage(imagePaths[self.group])
+                        imageMode(CENTER)
+                        image(img, width / 2, height / 2)
+                        strokeWeight(1.5)
+                        stroke(self.color)
+                        line(self.location.x, self.location.y, width / 2 - img.width / 2, height / 2 - img.height / 2)
+                        line(self.location.x, self.location.y, width / 2 + img.width / 2, height / 2 - img.height / 2)
+                        line(self.location.x, self.location.y, width / 2 - img.width / 2, height / 2 + img.height / 2)
+                        line(self.location.x, self.location.y, width / 2 + img.width / 2, height / 2 + img.height / 2)
+                        noStroke()
+                        textAlign(CENTER, TOP)
+                        fill(color(self.r, self.g, self.b))
+                        text(titles[self.group], width / 2, height / 2 + img.height / 2)
+                        textAlign(LEFT, BASELINE)
 
-
-
-
-
-
-
-
-
-
-
+    def isClosed(self, myMouse):
+        # Magnify the radius for easier pointing for text display
+        r = self.radius * 3
+        # Whether mouse is close to agents
+        if self.location.x-r < myMouse.x < self.location.x+r and self.location.y-r < myMouse.y < self.location.y+r:
+            return True
+        else:
+            return False
 
