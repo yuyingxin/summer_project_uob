@@ -184,17 +184,12 @@ def paramExtract(entityList, emotionList):
 
 
 def compressImage(imagePaths):
-    wList = []
-    hList = []
     for path in imagePaths:
         img = Image.open(path)
         w, h = img.size
         if w > 200:
             h *= (200 / w)
             w = 200
-        wList.append(w)
-        hList.append(int(h))
         dImg = img.resize((w, int(h)), Image.ANTIALIAS)
         dImg.save(path)
-    return wList, hList
 

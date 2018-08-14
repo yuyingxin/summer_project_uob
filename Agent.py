@@ -239,7 +239,7 @@ class Agent:
             self.velocity.y = -1 * self.velocity.y
             # print("4444")
 
-    def detailDisplay(self, myMouse=None, imagePaths=None, titles=None, wList=None, hList=None):
+    def detailDisplay(self, myMouse=None, imagePaths=None, titles=None):
         fill(100)
         if myMouse is None:
             text(self.text, self.location.x, self.location.y)
@@ -256,14 +256,15 @@ class Agent:
                     image(img, width/2, height/2)
                     strokeWeight(1.5)
                     stroke(self.color)
-                    line(self.location.x, self.location.y, width/2-wList[self.group]/2, height/2-hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2+wList[self.group]/2, height/2-hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2-wList[self.group]/2, height/2+hList[self.group]/2)
-                    line(self.location.x, self.location.y, width/2+wList[self.group]/2, height/2+hList[self.group]/2)
+                    line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
+                    line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
+                    line(self.location.x, self.location.y, width/2-img.width/2, height/2+img.height/2)
+                    line(self.location.x, self.location.y, width/2+img.width/2, height/2+img.height/2)
                     noStroke()
                     textAlign(CENTER, TOP)
                     fill(color(self.r, self.g, self.b))
-                    text(titles[self.group], width/2, height/2+hList[self.group]/2)
+                    text(titles[self.group], width/2, height/2+img.height/2)
+                    textAlign(LEFT, BASELINE)
 
 
 
