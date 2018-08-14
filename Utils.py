@@ -5,7 +5,7 @@ from newsapi import NewsApiClient
 from pyprocessing import textSize, fill, text
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 \
-    import Features, EntitiesOptions, EmotionOptions
+    import Features, EmotionOptions
 import urllib.request
 from News import News
 from PIL import Image
@@ -97,15 +97,12 @@ def nluInit():
     return natural_language_understanding
 
 
-def textAnalyse(url, entityNum, natural_language_understanding):
+def textAnalyse(url, natural_language_understanding):
 
     response = natural_language_understanding.analyze(
         url=url,
-        features=Features(entities=EntitiesOptions(
-            sentiment=False,
-            emotion=False,
-            limit=entityNum
-        ), emotion=EmotionOptions()
+        features=Features(
+            emotion=EmotionOptions()
         )
     )
 
@@ -122,12 +119,11 @@ def downloader(url, index):
     return path
 
 
-def featureExtract(natural_language_understanding, articleNum, entityNum, dateFrom, dateTo):
+def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo):
     """
     Extracting features from news (including retrieving news articles and analysing them by api)
     :param natural_language_understanding: credentials of IBM api
     :param articleNum: number of news articles that needs to be retrieved
-    :param entityNum: number of entities in each article that needs to be extracted
     :param dateFrom: starting date of news
     :param dateTo: ending date of news
     :return: 1.emotional status of each article, 2.entities and 3.its relevance of each article,
@@ -147,7 +143,7 @@ def featureExtract(natural_language_understanding, articleNum, entityNum, dateFr
     pool = mp.Pool(processes=articleNum)
 
     t = datetime.datetime.now()  # Computing time cost on text analyse
-    responses = [pool.apply(textAnalyse, args=(newsList[i].url, entityNum, natural_language_understanding))
+    responses = [pool.apply(textAnalyse, args=(newsList[i].url, natural_language_understanding))
                  for i in range(0, articleNum)]
     print("Time cost on text analyse:" + str(datetime.datetime.now() - t))  # Print the time cost
 

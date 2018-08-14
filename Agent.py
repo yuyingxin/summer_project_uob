@@ -37,7 +37,6 @@ class Agent:
         self.color = color(self.r, self.g, self.b, self.emotionLevel)
         self.groupCenter = self.location
 
-
     def update(self):
         self.location.add(self.velocity)
         self.velocity.add(self.acceleration)
@@ -142,7 +141,7 @@ class Agent:
                     sumLoc.add(other.location)
                     sumVel.add(other.velocity)
                     friendNum += 1
-                    # Display connected line
+                    # Display the connected line
                     # stroke(100, 30)
                     # line(self.location.x, self.location.y, other.location.x, other.location.y)
                     # noStroke()

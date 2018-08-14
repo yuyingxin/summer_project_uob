@@ -2,7 +2,7 @@ import os
 import shutil
 
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QLineEdit, QLabel, QGroupBox, QGridLayout, \
-    QVBoxLayout, QHBoxLayout, QGroupBox, QDialog
+    QVBoxLayout, QHBoxLayout, QGroupBox
 from PyQt5.QtCore import pyqtSlot, Qt
 import sys
 import datetime

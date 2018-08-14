@@ -10,9 +10,8 @@ import sys
 class SubInterface(Interface):
     @classmethod
     def on_click(cls):
-        global subInterface, articleNum, entityNum, dateFrom, dateTo
+        global subInterface, articleNum, dateFrom, dateTo
         articleNum = int(subInterface.edArticleNum.text())
-        entityNum = int(subInterface.edEntityNum.text())
         dateFrom = [subInterface.edYearFrom.text(), subInterface.edMonthFrom.text(), subInterface.edDayFrom.text()]
         dateTo = [subInterface.edYearTo.text(), subInterface.edMonthTo.text(), subInterface.edDayTo.text()]
         dateFrom = "-".join(dateFrom)
@@ -28,7 +27,7 @@ def mousePressed():
 def setup():
     size(960, 720)
     noStroke()
-    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, articleNum, entityNum, dateFrom, dateTo, \
+    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, articleNum, dateFrom, dateTo, \
         imagePaths, titles
     isPlaying = True
     isTextFollowing = False
@@ -37,7 +36,7 @@ def setup():
 
     # Extracting features
     nlu = nluInit()
-    emotionList, imagePaths, titles = featureExtract(nlu, articleNum, entityNum, dateFrom, dateTo)
+    emotionList, imagePaths, titles = featureExtract(nlu, articleNum, dateFrom, dateTo)
 
     # Compress images
     compressImage(imagePaths)
