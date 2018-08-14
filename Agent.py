@@ -142,9 +142,10 @@ class Agent:
                     sumLoc.add(other.location)
                     sumVel.add(other.velocity)
                     friendNum += 1
-                    stroke(100, 30)
-                    line(self.location.x, self.location.y, other.location.x, other.location.y)
-                    noStroke()
+                    # Display connected line
+                    # stroke(100, 30)
+                    # line(self.location.x, self.location.y, other.location.x, other.location.y)
+                    # noStroke()
                 # if 0 < d < neighbourDist:
                     # If they are neighbours, calculate the center and average velocity of neighbours
                     # sumVel.add(other.velocity)

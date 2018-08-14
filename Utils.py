@@ -153,28 +153,24 @@ def featureExtract(natural_language_understanding, articleNum, entityNum, dateFr
 
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
-    # entityList: 2-d list, each list inside is an article and elements inside is the text of entity
-    enetityList, relevanceList = parsingEntities(responses)
-    return emotionList, enetityList, relevanceList, paths, titles
+    return emotionList, paths, titles
 
 
-def paramExtract(entityList, emotionList):
-    groupSizes = []
+def paramExtract(emotionList):
     emotionIndex = []
     emotionCount = []
     emotionLevel = []  # EmotionLevel represents the weight of domain emotion
 
-    for i in range(0, len(entityList)):  # len(entityList) is actually the number of articles
-        groupSizes.append(len(entityList[i]))  # How many entities in each article (group)
-        index = emotionList[i].index(max(emotionList[i]))
-        emotionIndex.append(index)  # Find the domain emotion in each article
-        level = max(emotionList[i]) / sum(emotionList[i])
+    for i in range(0, len(emotionList)):  # len(entityList) is actually the number of articles
+        index = emotionList[i].index(max(emotionList[i]))  # Find the domain emotion in each article
+        emotionIndex.append(index)
+        level = max(emotionList[i]) / sum(emotionList[i])  # The weight of domain emotion
         emotionLevel.append(level)
 
     for i in range(0, 5):  # 5: the number of emotion
-        emotionCount.append(emotionIndex.count(i))
+        emotionCount.append(emotionIndex.count(i))  # Count the number of articles on each emotion type
 
-    return groupSizes, emotionIndex, emotionCount, emotionLevel
+    return emotionIndex, emotionCount, emotionLevel
 
 
 def compressImage(imagePaths):

@@ -29,7 +29,7 @@ def setup():
     size(960, 720)
     noStroke()
     global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, articleNum, entityNum, dateFrom, dateTo, \
-        imagePaths, imageWidths, imageHeights, titles
+        imagePaths, titles
     isPlaying = True
     isTextFollowing = False
     isImageShowing = False
@@ -37,14 +37,13 @@ def setup():
 
     # Extracting features
     nlu = nluInit()
-    emotionList, entityList, relevanceList, imagePaths, titles = featureExtract(nlu, articleNum, entityNum, dateFrom,
-                                                                                dateTo)
+    emotionList, imagePaths, titles = featureExtract(nlu, articleNum, entityNum, dateFrom, dateTo)
 
     # Compress images
     compressImage(imagePaths)
 
     #  Parsing the responses
-    groupSizes, emotionIndex, emotionCount, emotionLevel = paramExtract(entityList, emotionList)
+    emotionIndex, emotionCount, emotionLevel = paramExtract(emotionList)
 
     for i in range(0, articleNum):
         agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i])
@@ -52,8 +51,7 @@ def setup():
 
 
 def draw():
-    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, imagePaths, imageWidths, imageHeights,\
-        titles
+    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, imagePaths, titles
     background(255)
     smooth()
     labelDisplay(emotionCount)
