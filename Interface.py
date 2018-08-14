@@ -31,7 +31,6 @@ class Interface(QWidget):
         self.edDayTo = QLineEdit(str(today.day).zfill(2))
 
         self.edArticleNum = QLineEdit("5")
-        self.edEntityNum = QLineEdit("10")
 
         self.gbDate = QGroupBox("Date")
         self.gbNum = QGroupBox("Parameters")
@@ -48,7 +47,6 @@ class Interface(QWidget):
         btnCreate.setToolTip('Click to create the art visual for news')
         btnCreate.clicked.connect(self.on_click)
 
-        # self.createHorizontalLayout()
         self.createGridLayoutDate()
         self.createGridLayoutNum()
 
@@ -65,6 +63,7 @@ class Interface(QWidget):
         print("clicked!")
 
     def createGridLayoutDate(self):
+        # The grid Layout of inputting date period
         grid = QGridLayout()
         grid.setColumnStretch(0, 4)
         grid.setColumnStretch(1, 4)
@@ -90,14 +89,13 @@ class Interface(QWidget):
         self.gbDate.setLayout(grid)
 
     def createGridLayoutNum(self):
+        # The gird layout of inputting other parameters
         grid = QGridLayout()
         grid.setColumnStretch(0, 5)
         grid.setColumnStretch(1, 1)
 
         grid.addWidget(QLabel("News articles:"), 0, 0)
         grid.addWidget(self.edArticleNum, 0, 1)
-        grid.addWidget(QLabel("Entities:"), 1, 0)
-        grid.addWidget(self.edEntityNum, 1, 1)
 
         self.gbNum.setLayout(grid)
 
