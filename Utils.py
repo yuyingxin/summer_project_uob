@@ -5,14 +5,14 @@ from newsapi import NewsApiClient
 from pyprocessing import textSize, fill, text
 from watson_developer_cloud import NaturalLanguageUnderstandingV1
 from watson_developer_cloud.natural_language_understanding_v1 \
-    import Features, EmotionOptions
+    import Features, EmotionOptions, EntitiesOptions
 import urllib.request
 from News import News
 from PIL import Image
 
 
 def labelDisplay(emotionCount):
-    textSize(12)
+    textSize(10)
     fill(120, 225, 255)
     text("Sadness: {0}".format(emotionCount[0]), 5, 15)
     fill(255, 167, 0)
@@ -73,19 +73,16 @@ def parsingEmotion(response):
 
 def parsingEntities(response):
     entityTextList = []
-    entityRelevanceList = []
 
     for i in range(0, len(response)):
-        entityText = []
-        entityRelevance = []
-        for j in range(0, len(response[i]['entities'])):
-            entityText.append(response[i]['entities'][j]['text'])
-            entityRelevance.append(float(response[i]['entities'][j]['relevance']))
-        entityTextList.append(entityText)
-        entityRelevanceList.append(entityRelevance)
+        try:
+            entityTextList.append(response[i]['entities'][0]['text'])
+        except IndexError:
+            entityTextList.append(None)
+            print("Agent", i, "have no entity")
 
     # print(entityTextList)
-    return entityTextList, entityRelevanceList
+    return entityTextList
 
 
 def nluInit():
@@ -101,8 +98,11 @@ def textAnalyse(url, natural_language_understanding):
 
     response = natural_language_understanding.analyze(
         url=url,
-        features=Features(
-            emotion=EmotionOptions()
+        features=Features(entities=EntitiesOptions(
+            sentiment=False,
+            emotion=False,
+            limit=1
+        ), emotion=EmotionOptions()
         )
     )
 
@@ -113,9 +113,17 @@ def downloader(url, index):
     path = 'downloads'
     if not os.path.exists(path):
         os.mkdir(path)
-    fileName = str(index).zfill(3) + '.jpg'
+    fileName = str(index).zfill(3) + '.PNG'
     path = '{}{}{}'.format(path, os.sep, fileName)
-    urllib.request.urlretrieve(url, path)
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('User-Agent',
+                          'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0')]
+    urllib.request.install_opener(opener)
+    try:
+        urllib.request.urlretrieve(url=url, filename=path)
+    except urllib.error.HTTPError:
+        print("Agent", index, "have no image!")
+
     return path
 
 
@@ -133,11 +141,14 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     newsList = getNews(articleNum, dateFrom, dateTo)
 
     # Download images and return saved path
-    paths = []
     titles = []
     for i in range(0, articleNum):
-        paths.append(downloader(newsList[i].imageUrl, i))
+        # paths.append(downloader(newsList[i].imageUrl, i))
         titles.append(newsList[i].title)
+    t_download = datetime.datetime.now()  # Computing time cost on text analyse
+    pool_download = mp.Pool(processes=articleNum)
+    paths = [pool_download.apply(downloader, args=(newsList[i].imageUrl, i)) for i in range(0, articleNum)]
+    print("Time cost on downloading images:" + str(datetime.datetime.now() - t_download))  # Print the time cost
 
     # Multiprocessing (for analysing article text - fail because of blocking by IBM api)
     pool = mp.Pool(processes=articleNum)
@@ -149,7 +160,8 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
 
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
-    return emotionList, paths, titles
+    entityList = parsingEntities(responses)
+    return emotionList, entityList, paths, titles
 
 
 def paramExtract(emotionList):
@@ -171,11 +183,12 @@ def paramExtract(emotionList):
 
 def compressImage(imagePaths):
     for path in imagePaths:
-        img = Image.open(path)
-        w, h = img.size
-        if w > 200:
-            h *= (200 / w)
-            w = 200
-        dImg = img.resize((w, int(h)), Image.ANTIALIAS)
-        dImg.save(path)
+        if os.path.exists(path):
+            img = Image.open(path)
+            w, h = img.size
+            if h > 120:
+                w *= (120 / h)
+                h = 120
+            dImg = img.resize((int(w), h), Image.ANTIALIAS)
+            dImg.save(path)
 

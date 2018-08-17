@@ -30,7 +30,7 @@ class Interface(QWidget):
         self.edMonthTo = QLineEdit(str(today.month).zfill(2))
         self.edDayTo = QLineEdit(str(today.day).zfill(2))
 
-        self.edArticleNum = QLineEdit("5")
+        self.edArticleNum = QLineEdit("20")
 
         self.gbDate = QGroupBox("Date")
         self.gbNum = QGroupBox("Parameters")
@@ -106,7 +106,7 @@ class Interface(QWidget):
         :return: None
         """
         shutil.rmtree("downloads")
-        os.rmdir("downloads")
+        # os.rmdir("downloads")
 
 
 if __name__ == '__main__':

@@ -19,24 +19,27 @@ class SubInterface(Interface):
         run()
 
 
+def keyPressed():
+    global isTopicFollowing
+    isTopicFollowing = not isTopicFollowing
+
+
 def mousePressed():
     global isPlaying
     isPlaying = not isPlaying
 
 
 def setup():
-    size(960, 720)
+    size(600, 400)
     noStroke()
-    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, articleNum, dateFrom, dateTo, \
-        imagePaths, titles
-    isPlaying = True
-    isTextFollowing = False
-    isImageShowing = False
+    global agents, emotionCount, isPlaying, isTopicFollowing, articleNum, dateFrom, dateTo, imagePaths, titles
+    isPlaying = False
+    isTopicFollowing = False
     agents = []
 
     # Extracting features
     nlu = nluInit()
-    emotionList, imagePaths, titles = featureExtract(nlu, articleNum, dateFrom, dateTo)
+    emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, dateFrom, dateTo)
 
     # Compress images
     compressImage(imagePaths)
@@ -45,12 +48,12 @@ def setup():
     emotionIndex, emotionCount, emotionLevel = paramExtract(emotionList)
 
     for i in range(0, articleNum):
-        agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i])
+        agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i], entityList[i])
         agents.append(agent)
 
 
 def draw():
-    global agents, emotionCount, isPlaying, isTextFollowing, isImageShowing, imagePaths, titles
+    global agents, emotionCount, isPlaying, isTopicFollowing, imagePaths, titles
     background(255)
     smooth()
     labelDisplay(emotionCount)
@@ -62,6 +65,8 @@ def draw():
         for i in range(0, len(agents)):
             agents[i].display()
             agents[i].detailDisplay(myMouse=myMouse, agents=agents)
+            if isTopicFollowing:
+                agents[i].topicFollow()
     else:
         for i in range(0, len(agents)):
             agents[i].applyBehaviour(agents, myMouse)
@@ -69,6 +74,8 @@ def draw():
             agents[i].update()
             agents[i].display()
             agents[i].detailDisplay(myMouse=myMouse, agents=agents)
+            if isTopicFollowing:
+                agents[i].topicFollow()
 
 
 if __name__ == '__main__':

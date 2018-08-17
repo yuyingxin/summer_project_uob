@@ -3,7 +3,7 @@ import random
 
 
 class Agent:
-    def __init__(self, group, emotionLevel, title, imagePath):
+    def __init__(self, group, emotionLevel, title, imagePath, entity):
         # emotion = group
         self.location = PVector(random.randint(0, width), random.randint(0, height))
         self.acceleration = PVector(0, 0)
@@ -23,6 +23,7 @@ class Agent:
         self.emotionLevel = map(emotionLevel, 0, 1, 0, 255)
         self.title = title
         self.imagePath = imagePath
+        self.entity = entity
 
         # Choose color
         col_blue = (120, 225, 255)  # sadness
@@ -36,6 +37,8 @@ class Agent:
         self.b = palette[self.emotion][2]
         self.color = color(self.r, self.g, self.b, self.emotionLevel)
         self.groupCenter = self.location
+
+        self.count = [0, 0, 0, 0]
 
     def update(self):
         self.location.add(self.velocity)
@@ -230,16 +233,49 @@ class Agent:
 
         if self.location.x < -self.radius:
             self.velocity.x = -1 * self.velocity.x
-            # print("1111")
+            self.count[0] += 1
+            self.count[1] = 0
+            self.count[2] = 0
+            self.count[3] = 0
+            print(self.count[0])
         if self.location.y < -self.radius:
             self.velocity.y = -1 * self.velocity.y
-            # print("2222")
+            self.count[0] = 0
+            self.count[1] += 1
+            self.count[2] = 0
+            self.count[3] = 0
+            print(self.count[1])
         if self.location.x > width + self.radius:
             self.velocity.x = -1 * self.velocity.x
-            # print("3333")
+            self.count[0] = 0
+            self.count[1] = 0
+            self.count[2] += 1
+            self.count[3] = 0
+            print(self.count[2])
         if self.location.y > height + self.radius:
             self.velocity.y = -1 * self.velocity.y
-            # print("4444")
+            self.count[0] = 0
+            self.count[1] = 0
+            self.count[2] = 0
+            self.count[3] += 1
+            print(self.count[3])
+        if max(self.count) > 100:
+            self.__init__(self.group, self.emotionLevel, self.title, self.imagePath, self.entity)
+            del self
+
+            # index = self.count.index(max(self.count))
+            # if index == 0:
+            #     self.location.x += 5
+            #     self.velocity.normalize()
+            # elif index == 1:
+            #     self.location.y += 5
+            #     self.velocity.normalize()
+            # elif index == 2:
+            #     self.location.x -= 5
+            #     self.velocity.normalize()
+            # else:
+            #     self.location.y -= 5
+            #     self.velocity.normalize()
 
     def detailDisplay(self, myMouse, agents):
         fill(100)
@@ -249,20 +285,27 @@ class Agent:
                 if other.isClosed(myMouse):
                     dists.append(dist(other.location.x, other.location.y, myMouse.x, myMouse.y))
             if dists.index(max(dists)) == 0:
-                img = loadImage(self.imagePath)
-                imageMode(CENTER)
-                image(img, width/2, height/2)
-                strokeWeight(1.5)
-                stroke(self.color)
-                line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
-                line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
-                line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
-                line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
-                noStroke()
+                if os.path.exists(self.imagePath):
+                    img = loadImage(self.imagePath)
+                    imageMode(CENTER)
+                    image(img, width/2, height/2)
+                    strokeWeight(1.5)
+                    stroke(self.color)
+                    line(self.location.x, self.location.y, width/2-img.width/2, height/2-img.height/2)
+                    line(self.location.x, self.location.y, width/2+img.width/2, height/2-img.height/2)
+                    line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
+                    line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
+                    noStroke()
                 textAlign(CENTER, TOP)
                 fill(color(self.r, self.g, self.b))
-                text(self.title, width/2, height/2+img.height/2)
+                textSize(12)
+                text(self.title, width/2, height/2+120)
                 textAlign(LEFT, BASELINE)
+
+    def topicFollow(self):
+        textSize(8)
+        if self.entity is not None:
+            text(self.entity, self.location.x, self.location.y)
 
     def isClosed(self, myMouse):
         # Magnify the radius for easier pointing for text display
