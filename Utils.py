@@ -9,7 +9,10 @@ from watson_developer_cloud.natural_language_understanding_v1 \
 import urllib.request
 from News import News
 from PIL import Image
+import json
 
+global downloadPath
+downloadPath = "downloads"
 
 def labelDisplay(emotionCount):
     textSize(10)
@@ -110,21 +113,28 @@ def textAnalyse(url, natural_language_understanding):
 
 
 def downloader(url, index):
-    path = 'downloads'
-    if not os.path.exists(path):
-        os.mkdir(path)
+    global downloadPath
+    # If download path is not existed, make a new one
+    if not os.path.exists(downloadPath):
+        os.mkdir(downloadPath)
+    # Name the image files according to the index of them
     fileName = str(index).zfill(3) + '.PNG'
-    path = '{}{}{}'.format(path, os.sep, fileName)
+    # Generate the file path
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    # If the file is already existed, delete it to avoid the history
+    if os.path.exists(filePath):
+        os.remove(filePath)
+
     opener = urllib.request.build_opener()
     opener.addheaders = [('User-Agent',
                           'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0')]
     urllib.request.install_opener(opener)
     try:
-        urllib.request.urlretrieve(url=url, filename=path)
+        urllib.request.urlretrieve(url=url, filename=filePath)
     except urllib.error.HTTPError:
         print("Agent", index, "have no image!")
 
-    return path
+    return filePath
 
 
 def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo):
@@ -158,10 +168,44 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
                  for i in range(0, articleNum)]
     print("Time cost on text analyse:" + str(datetime.datetime.now() - t))  # Print the time cost
 
+    # Save json file on local
+    global downloadPath
+    if not os.path.exists(downloadPath):
+        os.mkdir(downloadPath)
+    fileName = "response_file.json"
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    if os.path.exists(filePath):
+        os.remove(filePath)
+
+    f = open(filePath, "a")
+    f.write(json.dumps(responses))
+    f.close()
+
+    strResponses = open(filePath, "r").read()
+    responses = json.loads(strResponses)
+
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
     entityList = parsingEntities(responses)
     return emotionList, entityList, paths, titles
+
+
+def offlineFeatureExtraction(articleNum):
+    filePaths = []
+    for i in range(0, articleNum):
+        fileName = str(i).zfill(3) + '.PNG'
+        filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+        filePaths.append(filePath)
+
+    fileName = "response_file.json"
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    strResponses = open(filePath, "r").read()
+    responses = json.loads(strResponses)
+
+    # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
+    emotionList = parsingEmotion(responses)
+    entityList = parsingEntities(responses)
+    return emotionList, entityList, filePaths, titles
 
 
 def paramExtract(emotionList):

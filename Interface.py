@@ -105,8 +105,9 @@ class Interface(QWidget):
         :param QCloseEvent: event occurred when close() is called
         :return: None
         """
-        shutil.rmtree("downloads")
-        # os.rmdir("downloads")
+        # downloadPath = "downloads"
+        # if os.path.exists(downloadPath):
+        #     shutil.rmtree(downloadPath)
 
 
 if __name__ == '__main__':
