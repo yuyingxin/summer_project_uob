@@ -23,7 +23,7 @@ class Interface(QWidget):
         today = datetime.date.today()
         self.edYearFrom = QLineEdit(str(today.year))
         self.edMonthFrom = QLineEdit(str(today.month).zfill(2))
-        yesterday = today - datetime.timedelta(days=1)
+        yesterday = today - datetime.timedelta(days=2)
         self.edDayFrom = QLineEdit(str(yesterday.day).zfill(2))
 
         self.edYearTo = QLineEdit(str(today.year))
@@ -105,7 +105,9 @@ class Interface(QWidget):
         :param QCloseEvent: event occurred when close() is called
         :return: None
         """
-        shutil.rmtree("downloads")
+        downloadPath = "downloads"
+        if os.path.exists(downloadPath):
+            shutil.rmtree(downloadPath)
         # os.rmdir("downloads")
 
 

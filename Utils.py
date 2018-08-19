@@ -140,11 +140,11 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     # Retrieve news (url, title and image) from google api
     newsList = getNews(articleNum, dateFrom, dateTo)
 
-    # Download images and return saved path
     titles = []
     for i in range(0, articleNum):
-        # paths.append(downloader(newsList[i].imageUrl, i))
         titles.append(newsList[i].title)
+
+    # Download images and return saved path
     t_download = datetime.datetime.now()  # Computing time cost on text analyse
     pool_download = mp.Pool(processes=articleNum)
     paths = [pool_download.apply(downloader, args=(newsList[i].imageUrl, i)) for i in range(0, articleNum)]
