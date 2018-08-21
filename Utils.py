@@ -31,6 +31,7 @@ def getNews(articleNum, keywordSearch, dateFrom, dateTo):
 
     if keywordSearch == '':
         sortBy = 'popularity'
+        keywordSearch = None
     else:
         sortBy = 'relevancy'
 
@@ -146,8 +147,12 @@ def featureExtract(natural_language_understanding, articleNum, keywordSearch, da
     :return: 1.emotional status of each article, 2.entities and 3.its relevance of each article,
     4.paths of saved images of each article, 5.titles of each articles
     """
+    # Initialize download file path
     global downloadPath
-    downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
+    if keywordSearch == '':
+        downloadPath = '_'.join(['downloads', 'offline'])
+    else:
+        downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
 
     # Retrieve news (url, title and image) from google api
     newsList = getNews(articleNum, keywordSearch, dateFrom, dateTo)
@@ -196,8 +201,13 @@ def featureExtract(natural_language_understanding, articleNum, keywordSearch, da
 
 
 def offlineFeatureExtract(articleNum, keywordSearch):
+    # Initialize download file path
     global downloadPath
-    downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
+    if keywordSearch == '':
+        downloadPath = '_'.join(['downloads', 'offline'])
+    else:
+        downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
+
     filePaths = []
     print("article number:", articleNum)
     for i in range(0, articleNum):
