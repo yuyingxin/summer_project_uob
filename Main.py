@@ -10,8 +10,9 @@ import sys
 class SubInterface(Interface):
     @classmethod
     def on_click(cls):
-        global subInterface, articleNum, dateFrom, dateTo
+        global subInterface, articleNum, dateFrom, dateTo, keywordSearch
         articleNum = int(subInterface.edArticleNum.text())
+        keywordSearch = subInterface.edKeywordSearch.text()
         dateFrom = [subInterface.edYearFrom.text(), subInterface.edMonthFrom.text(), subInterface.edDayFrom.text()]
         dateTo = [subInterface.edYearTo.text(), subInterface.edMonthTo.text(), subInterface.edDayTo.text()]
         dateFrom = "-".join(dateFrom)
@@ -39,7 +40,7 @@ def setup():
 
     # Extracting features
     # nlu = nluInit()
-    # emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, dateFrom, dateTo)
+    # emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, keywordSearch, dateFrom, dateTo)
 
     # Offline feature extraction
     emotionList, entityList, imagePaths, titles = offlineFeatureExtract(articleNum)
@@ -50,7 +51,7 @@ def setup():
     #  Parsing the responses
     emotionIndex, emotionCount, emotionLevel = paramExtract(emotionList)
 
-    for i in range(0, articleNum):
+    for i in range(0, len(titles)):
         agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i], entityList[i])
         agents.append(agent)
 

@@ -12,11 +12,11 @@ from PIL import Image
 import json
 
 global downloadPath
-downloadPath = "downloads_offline"
+downloadPath = "downloads_keyword_offline"
 
 
 def labelDisplay(emotionCount):
-    textSize(10)
+    textSize(12)
     fill(120, 225, 255)
     text("Sadness: {0}".format(emotionCount[0]), 5, 15)
     fill(255, 167, 0)
@@ -29,7 +29,7 @@ def labelDisplay(emotionCount):
     text("Anger: {0}".format(emotionCount[4]), 5, 75)
 
 
-def getNews(articleNum, dateFrom, dateTo):
+def getNews(articleNum, kewordSearch, dateFrom, dateTo):
     # url_articles = []
     # title_articles = []
     # image_articles = []
@@ -41,8 +41,9 @@ def getNews(articleNum, dateFrom, dateTo):
     articles = newsApi.get_everything(sources='bbc-news',  # limit search by source index (in documentation)
                                       from_param=dateFrom,
                                       to=dateTo,
+                                      q=kewordSearch,
                                       language='en',
-                                      sort_by='popularity',
+                                      sort_by='relevancy',
                                       page_size=articleNum,
                                       page=1)
 
@@ -138,7 +139,7 @@ def downloader(url, index):
     return filePath
 
 
-def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo):
+def featureExtract(natural_language_understanding, articleNum, keywordSearch, dateFrom, dateTo):
     """
     Extracting features from news (including retrieving news articles and analysing them by api)
     :param natural_language_understanding: credentials of IBM api
@@ -149,7 +150,10 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     4.paths of saved images of each article, 5.titles of each articles
     """
     # Retrieve news (url, title and image) from google api
-    newsList = getNews(articleNum, dateFrom, dateTo)
+    newsList = getNews(articleNum, keywordSearch, dateFrom, dateTo)
+
+    if len(newsList) < articleNum:
+        articleNum = len(newsList)
 
     # Download images and return saved path
     titles = []
@@ -174,7 +178,7 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     filePathResponses = initSavedPath(fileName="response_file.json")
 
     # Save title list on local
-    titleFile = open(filePathTitle, "w")
+    titleFile = open(filePathTitle, "w", encoding='utf-8')
     for title in titles:
         titleFile.write(title)
         titleFile.write('\n')

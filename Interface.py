@@ -34,23 +34,25 @@ class Interface(QWidget):
         # Initialize the LineEdit - offline version
         self.edYearFrom = QLineEdit("2018")
         self.edMonthFrom = QLineEdit("08")
-        self.edDayFrom = QLineEdit("17")
-        self.edYearFrom.setDisabled(True)
-        self.edMonthFrom.setDisabled(True)
-        self.edDayFrom.setDisabled(True)
+        self.edDayFrom = QLineEdit("01")
+        # self.edYearFrom.setDisabled(True)
+        # self.edMonthFrom.setDisabled(True)
+        # self.edDayFrom.setDisabled(True)
 
         self.edYearTo = QLineEdit("2018")
         self.edMonthTo = QLineEdit("08")
-        self.edDayTo = QLineEdit("19")
-        self.edYearTo.setDisabled(True)
-        self.edMonthTo.setDisabled(True)
-        self.edDayTo.setDisabled(True)
+        self.edDayTo = QLineEdit("21")
+        # self.edYearTo.setDisabled(True)
+        # self.edMonthTo.setDisabled(True)
+        # self.edDayTo.setDisabled(True)
 
         self.edArticleNum = QLineEdit("50")
         validator = QIntValidator(0, 50)
         self.edArticleNum.setValidator(validator)
 
-        self.gbDate = QGroupBox("Date (Fixed)")
+        self.edKeywordSearch = QLineEdit("weather")
+
+        self.gbDate = QGroupBox("Date")
         self.gbNum = QGroupBox("Parameters")
         self.hbCreate = QHBoxLayout()
         self.initUI()
@@ -109,12 +111,14 @@ class Interface(QWidget):
     def createGridLayoutNum(self):
         # The gird layout of inputting other parameters
         grid = QGridLayout()
-        grid.setColumnStretch(0, 5)
+        grid.setColumnStretch(0, 3)
         grid.setColumnStretch(1, 1)
 
-        grid.addWidget(QLabel("News articles:"), 0, 0)
+        grid.addWidget(QLabel("News articles (max: 50):"), 0, 0)
         grid.addWidget(self.edArticleNum, 0, 1)
-        grid.addWidget(QLabel("Max input: 50"))
+
+        grid.addWidget(QLabel("Keyword search"), 1, 0)
+        grid.addWidget(self.edKeywordSearch, 1, 1)
 
         self.gbNum.setLayout(grid)
 
