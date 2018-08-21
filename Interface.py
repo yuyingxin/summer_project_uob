@@ -51,7 +51,7 @@ class Interface(QWidget):
         self.edArticleNum.setValidator(validator)
 
         self.edKeywordSearch = QLineEdit("weather")
-        self.edKeywordSearch.setDisabled(True)
+        # self.edKeywordSearch.setDisabled(True)
 
         self.gbDate = QGroupBox("Date")
         self.gbNum = QGroupBox("Input")

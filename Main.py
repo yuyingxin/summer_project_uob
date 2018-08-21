@@ -33,7 +33,8 @@ def mousePressed():
 def setup():
     size(600, 400)
     noStroke()
-    global agents, emotionCount, isPlaying, isTopicFollowing, articleNum, dateFrom, dateTo, imagePaths, titles
+    global agents, emotionCount, isPlaying, isTopicFollowing, articleNum, dateFrom, dateTo, imagePaths, titles,\
+        keywordSearch
     isPlaying = False
     isTopicFollowing = False
     agents = []
@@ -43,7 +44,7 @@ def setup():
     # emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, keywordSearch, dateFrom, dateTo)
 
     # Offline feature extraction
-    emotionList, entityList, imagePaths, titles = offlineFeatureExtract(articleNum)
+    emotionList, entityList, imagePaths, titles = offlineFeatureExtract(articleNum, keywordSearch)
 
     # Compress images
     compressImage(imagePaths)

@@ -11,9 +11,6 @@ from News import News
 from PIL import Image
 import json
 
-global downloadPath
-downloadPath = "downloads_keyword_offline"
-
 
 def labelDisplay(emotionCount):
     textSize(12)
@@ -29,11 +26,13 @@ def labelDisplay(emotionCount):
     text("Anger: {0}".format(emotionCount[4]), 5, 75)
 
 
-def getNews(articleNum, kewordSearch, dateFrom, dateTo):
-    # url_articles = []
-    # title_articles = []
-    # image_articles = []
+def getNews(articleNum, keywordSearch, dateFrom, dateTo):
     newsList = []
+
+    if keywordSearch == '':
+        sortBy = 'popularity'
+    else:
+        sortBy = 'relevancy'
 
     # Extracting news articles from google news api
     # Setting up request and requesting (google news api)
@@ -41,18 +40,15 @@ def getNews(articleNum, kewordSearch, dateFrom, dateTo):
     articles = newsApi.get_everything(sources='bbc-news',  # limit search by source index (in documentation)
                                       from_param=dateFrom,
                                       to=dateTo,
-                                      q=kewordSearch,
+                                      q=keywordSearch,
                                       language='en',
-                                      sort_by='relevancy',
+                                      sort_by=sortBy,
                                       page_size=articleNum,
                                       page=1)
 
     # Parsing url of each article from response
     for i in range(0, len(articles['articles'])):
         news = News(articles['articles'][i]['title'], articles['articles'][i]['url'], articles['articles'][i]['urlToImage'])
-        # url_articles.append(articles['articles'][i]['url'])
-        # title_articles.append(articles['articles'][i]['title'])
-        # image_articles.append(articles['articles'][i]['urlToImage'])
         newsList.append(news)
 
     # return url_articles, title_articles, image_articles
@@ -146,9 +142,13 @@ def featureExtract(natural_language_understanding, articleNum, keywordSearch, da
     :param articleNum: number of news articles that needs to be retrieved
     :param dateFrom: starting date of news
     :param dateTo: ending date of news
+    :param keywordSearch: the keyword that user search for
     :return: 1.emotional status of each article, 2.entities and 3.its relevance of each article,
     4.paths of saved images of each article, 5.titles of each articles
     """
+    global downloadPath
+    downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
+
     # Retrieve news (url, title and image) from google api
     newsList = getNews(articleNum, keywordSearch, dateFrom, dateTo)
 
@@ -195,8 +195,9 @@ def featureExtract(natural_language_understanding, articleNum, keywordSearch, da
     return emotionList, entityList, paths, titles
 
 
-def offlineFeatureExtract(articleNum):
+def offlineFeatureExtract(articleNum, keywordSearch):
     global downloadPath
+    downloadPath = '_'.join(['downloads', keywordSearch, 'offline'])
     filePaths = []
     print("article number:", articleNum)
     for i in range(0, articleNum):
