@@ -12,7 +12,8 @@ from PIL import Image
 import json
 
 global downloadPath
-downloadPath = "downloads"
+downloadPath = "downloads_offline"
+
 
 def labelDisplay(emotionCount):
     textSize(10)
@@ -191,6 +192,7 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
 
 
 def offlineFeatureExtract(articleNum):
+    global downloadPath
     filePaths = []
     print("article number:", articleNum)
     for i in range(0, articleNum):
