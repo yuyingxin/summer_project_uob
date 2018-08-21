@@ -121,7 +121,7 @@ def downloader(url, index):
     fileName = str(index).zfill(3) + '.PNG'
     # Generate the file path
     filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
-    # If the file is already existed, delete it to avoid the history
+    # If the file is already existed, delete it to avoid the history remains
     if os.path.exists(filePath):
         os.remove(filePath)
 
@@ -168,21 +168,21 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
                  for i in range(0, articleNum)]
     print("Time cost on text analyse:" + str(datetime.datetime.now() - t))  # Print the time cost
 
-    # Save json file on local
-    global downloadPath
-    if not os.path.exists(downloadPath):
-        os.mkdir(downloadPath)
-    fileName = "response_file.json"
-    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
-    if os.path.exists(filePath):
-        os.remove(filePath)
+    # Create the path of saved file
+    filePathTitle = initSavedPath(fileName="titles.txt")
+    filePathResponses = initSavedPath(fileName="response_file.json")
 
-    f = open(filePath, "a")
-    f.write(json.dumps(responses))
-    f.close()
+    # Save title list on local
+    titleFile = open(filePathTitle, "w")
+    for title in titles:
+        titleFile.write(title)
+        titleFile.write('\n')
+    titleFile.close()
 
-    strResponses = open(filePath, "r").read()
-    responses = json.loads(strResponses)
+    # Save response .json file on local
+    resFile = open(filePathResponses, "a")
+    resFile.write(json.dumps(responses))
+    resFile.close()
 
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
@@ -190,17 +190,28 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     return emotionList, entityList, paths, titles
 
 
-def offlineFeatureExtraction(articleNum):
+def offlineFeatureExtract(articleNum):
     filePaths = []
+    print("article number:", articleNum)
     for i in range(0, articleNum):
         fileName = str(i).zfill(3) + '.PNG'
         filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
         filePaths.append(filePath)
 
-    fileName = "response_file.json"
-    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
-    strResponses = open(filePath, "r").read()
+    # Create the path of saved file
+    filePathTitle = initSavedPath(fileName="titles.txt")
+    filePathResponses = initSavedPath(fileName="response_file.json")
+
+    # Read the local title .text file
+    titles = []
+    lines = open(filePathTitle, 'r').readlines()
+    for line in lines[:articleNum]:
+        titles.append(line)
+
+    # Read the local response .json file
+    strResponses = open(filePathResponses, "r").read()
     responses = json.loads(strResponses)
+    responses = responses[:articleNum]
 
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
@@ -236,3 +247,15 @@ def compressImage(imagePaths):
             dImg = img.resize((int(w), h), Image.ANTIALIAS)
             dImg.save(path)
 
+
+def initSavedPath(fileName):
+    # Create the downloads file
+    global downloadPath
+    if not os.path.exists(downloadPath):
+        os.mkdir(downloadPath)
+    # Initialize the download path
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    # Clear history (online version only)
+    # if os.path.exists(filePath):
+    #     os.remove(filePath)
+    return filePath

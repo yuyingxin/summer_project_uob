@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from PyQt5.QtGui import QValidator, QIntValidator
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QLineEdit, QLabel, QGroupBox, QGridLayout, \
     QVBoxLayout, QHBoxLayout, QGroupBox
 from PyQt5.QtCore import pyqtSlot, Qt
@@ -13,26 +14,43 @@ class Interface(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.title = 'News Visualization'
+        self.title = 'News Visualization - Offline version'
         self.left = 100
         self.top = 100
         self.width = 400
         self.height = 400
 
-        # Initialize the LineEdit
-        today = datetime.date.today()
-        self.edYearFrom = QLineEdit(str(today.year))
-        self.edMonthFrom = QLineEdit(str(today.month).zfill(2))
-        yesterday = today - datetime.timedelta(days=1)
-        self.edDayFrom = QLineEdit(str(yesterday.day).zfill(2))
+        # # Initialize the LineEdit
+        # today = datetime.date.today()
+        # self.edYearFrom = QLineEdit(str(today.year))
+        # self.edMonthFrom = QLineEdit(str(today.month).zfill(2))
+        # yesterday = today - datetime.timedelta(days=1)
+        # self.edDayFrom = QLineEdit(str(yesterday.day).zfill(2))
+        #
+        # self.edYearTo = QLineEdit(str(today.year))
+        # self.edMonthTo = QLineEdit(str(today.month).zfill(2))
+        # self.edDayTo = QLineEdit(str(today.day).zfill(2))
 
-        self.edYearTo = QLineEdit(str(today.year))
-        self.edMonthTo = QLineEdit(str(today.month).zfill(2))
-        self.edDayTo = QLineEdit(str(today.day).zfill(2))
+        # Initialize the LineEdit - offline version
+        self.edYearFrom = QLineEdit("2018")
+        self.edMonthFrom = QLineEdit("08")
+        self.edDayFrom = QLineEdit("17")
+        self.edYearFrom.setDisabled(True)
+        self.edMonthFrom.setDisabled(True)
+        self.edDayFrom.setDisabled(True)
 
-        self.edArticleNum = QLineEdit("20")
+        self.edYearTo = QLineEdit("2018")
+        self.edMonthTo = QLineEdit("08")
+        self.edDayTo = QLineEdit("19")
+        self.edYearTo.setDisabled(True)
+        self.edMonthTo.setDisabled(True)
+        self.edDayTo.setDisabled(True)
 
-        self.gbDate = QGroupBox("Date")
+        self.edArticleNum = QLineEdit("50")
+        validator = QIntValidator(0, 50)
+        self.edArticleNum.setValidator(validator)
+
+        self.gbDate = QGroupBox("Date (Fixed)")
         self.gbNum = QGroupBox("Parameters")
         self.hbCreate = QHBoxLayout()
         self.initUI()
@@ -96,6 +114,7 @@ class Interface(QWidget):
 
         grid.addWidget(QLabel("News articles:"), 0, 0)
         grid.addWidget(self.edArticleNum, 0, 1)
+        grid.addWidget(QLabel("Max input: 50"))
 
         self.gbNum.setLayout(grid)
 
@@ -105,6 +124,7 @@ class Interface(QWidget):
         :param QCloseEvent: event occurred when close() is called
         :return: None
         """
+        # Offline version do not delete downloading file
         # downloadPath = "downloads"
         # if os.path.exists(downloadPath):
         #     shutil.rmtree(downloadPath)
