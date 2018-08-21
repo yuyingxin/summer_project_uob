@@ -35,25 +35,26 @@ class Interface(QWidget):
         self.edYearFrom = QLineEdit("2018")
         self.edMonthFrom = QLineEdit("08")
         self.edDayFrom = QLineEdit("01")
-        # self.edYearFrom.setDisabled(True)
-        # self.edMonthFrom.setDisabled(True)
-        # self.edDayFrom.setDisabled(True)
+        self.edYearFrom.setDisabled(True)
+        self.edMonthFrom.setDisabled(True)
+        self.edDayFrom.setDisabled(True)
 
         self.edYearTo = QLineEdit("2018")
         self.edMonthTo = QLineEdit("08")
         self.edDayTo = QLineEdit("21")
-        # self.edYearTo.setDisabled(True)
-        # self.edMonthTo.setDisabled(True)
-        # self.edDayTo.setDisabled(True)
+        self.edYearTo.setDisabled(True)
+        self.edMonthTo.setDisabled(True)
+        self.edDayTo.setDisabled(True)
 
         self.edArticleNum = QLineEdit("50")
         validator = QIntValidator(0, 50)
         self.edArticleNum.setValidator(validator)
 
         self.edKeywordSearch = QLineEdit("weather")
+        self.edKeywordSearch.setDisabled(True)
 
         self.gbDate = QGroupBox("Date")
-        self.gbNum = QGroupBox("Parameters")
+        self.gbNum = QGroupBox("Input")
         self.hbCreate = QHBoxLayout()
         self.initUI()
 
