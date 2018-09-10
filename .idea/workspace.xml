@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Agent.py" description="        steerBor = PVector(0, 0)&#10;        if self.l..." line="206" />
+    <bookmark url="file://$PROJECT_DIR$/Agent.py" description="        steerBor = PVector(0, 0)&#10;        if self.l..." line="209" />
     <bookmark url="file://$PROJECT_DIR$/Utils.py" description="        url_articles.append(articles['articles'][i..." line="50" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05919ed-2c9c-47d1-8bd0-2fa02541518e" name="Default" comment="Fix bugs on visual and downloading images. Add keyword display">
+    <list default="true" id="e05919ed-2c9c-47d1-8bd0-2fa02541518e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +21,11 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+            <state relative-caret-position="1520">
+              <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -29,7 +33,7 @@
       <file leaf-file-name="Utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="19">
               <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -38,13 +42,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AntGenerator.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AntGenerator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AntGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            <state relative-caret-position="114">
+              <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Agent.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Agent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,7 +77,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TreeGenerator.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TreeGenerator.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TreeGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state>
@@ -169,13 +185,13 @@
         <option value="$PROJECT_DIR$/test012.py" />
         <option value="D:/Program Files (x86)/Lib/pyprocessing/pvector.py" />
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/Agent.py" />
         <option value="$PROJECT_DIR$/response_file.json" />
         <option value="$PROJECT_DIR$/Utils.py" />
         <option value="$PROJECT_DIR$/test009.py" />
         <option value="$PROJECT_DIR$/PathFinder.py" />
         <option value="$PROJECT_DIR$/Interface.py" />
         <option value="$PROJECT_DIR$/Tree.py" />
+        <option value="$PROJECT_DIR$/Agent.py" />
       </list>
     </option>
   </component>
@@ -400,7 +416,21 @@
       <option name="project" value="LOCAL" />
       <updated>1534464273810</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add pyprocessing file">
+      <created>1536619308732</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1536619308732</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add local files for offline version">
+      <created>1536619430750</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1536619430750</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -411,8 +441,8 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3297491" />
       <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3297491" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2580645" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36200717" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.75628144" visible="true" weight="0.20937753" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36200717" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75628144" visible="true" weight="0.20937753" />
       <window_info anchor="right" id="R Packages" order="4" weight="0.32983023" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3297491" />
@@ -497,18 +527,20 @@
     <MESSAGE value="Change interface for alter representation" />
     <MESSAGE value="fix bugs and add comments" />
     <MESSAGE value="Fix bugs on visual and downloading images. Add keyword display" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix bugs on visual and downloading images. Add keyword display" />
+    <MESSAGE value="add pyprocessing file" />
+    <MESSAGE value="Add local files for offline version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add local files for offline version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://D:/Program Files (x86)/Lib/pyprocessing/flippolicy.py</url>
+          <url />
           <line>147</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://D:/Program Files (x86)/Lib/pyprocessing/flippolicy.py</url>
+          <url />
           <line>176</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
@@ -524,13 +556,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/633835329/PyQt5/QtWidgets/QGridLayout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-366">
-          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2018.1/system/python_stubs/633835329/PyQt5/QtWidgets/QLayout.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -554,7 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pyprocessing/pimage.py" />
     <entry file="file://D:/Program Files (x86)/Lib/site-packages/PIL/Image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-195">
@@ -702,28 +726,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Agent.py">
+    <entry file="file://$PROJECT_DIR$/Leaf.py" />
+    <entry file="file://$PROJECT_DIR$/Tree.py" />
+    <entry file="file://$PROJECT_DIR$/PathFinder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret lean-forward="true" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Leaf.py" />
-    <entry file="file://$PROJECT_DIR$/requirement">
+    <entry file="file://$PROJECT_DIR$/pyprocessing/constants.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        <state>
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tree.py" />
+    <entry file="file://$PROJECT_DIR$/pyprocessing/pimage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1520">
+          <caret line="80" column="32" selection-start-line="80" selection-start-column="32" selection-end-line="80" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="19">
           <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -731,9 +771,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PathFinder.py">
+    <entry file="file://$PROJECT_DIR$/requirement">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="95">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AntGenerator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -745,23 +803,6 @@
         <state>
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AntGenerator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

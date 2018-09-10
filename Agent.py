@@ -1,6 +1,9 @@
 from pyprocessing import *
 import random
 
+"""
+The class 'Agent' is inspired and modified by the class 'boid' from the example of Processing by by Daniel Shiffman.
+"""
 
 class Agent:
     def __init__(self, group, emotionLevel, title, imagePath, entity):
