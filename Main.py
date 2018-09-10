@@ -10,8 +10,9 @@ import sys
 class SubInterface(Interface):
     @classmethod
     def on_click(cls):
-        global subInterface, articleNum, dateFrom, dateTo
+        global subInterface, articleNum, dateFrom, dateTo, keywordSearch
         articleNum = int(subInterface.edArticleNum.text())
+        keywordSearch = subInterface.edKeywordSearch.text()
         dateFrom = [subInterface.edYearFrom.text(), subInterface.edMonthFrom.text(), subInterface.edDayFrom.text()]
         dateTo = [subInterface.edYearTo.text(), subInterface.edMonthTo.text(), subInterface.edDayTo.text()]
         dateFrom = "-".join(dateFrom)
@@ -32,14 +33,15 @@ def mousePressed():
 def setup():
     size(600, 400)
     noStroke()
-    global agents, emotionCount, isPlaying, isTopicFollowing, articleNum, dateFrom, dateTo, imagePaths, titles
+    global agents, emotionCount, isPlaying, isTopicFollowing, articleNum, dateFrom, dateTo, imagePaths, titles,\
+        keywordSearch
     isPlaying = False
     isTopicFollowing = False
     agents = []
 
     # Extracting features
     nlu = nluInit()
-    emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, dateFrom, dateTo)
+    emotionList, entityList, imagePaths, titles = featureExtract(nlu, articleNum, keywordSearch, dateFrom, dateTo)
 
     # Compress images
     compressImage(imagePaths)
@@ -47,7 +49,7 @@ def setup():
     #  Parsing the responses
     emotionIndex, emotionCount, emotionLevel = paramExtract(emotionList)
 
-    for i in range(0, articleNum):
+    for i in range(0, len(titles)):
         agent = Agent(emotionIndex[i], emotionLevel[i], titles[i], imagePaths[i], entityList[i])
         agents.append(agent)
 
@@ -64,18 +66,18 @@ def draw():
     if not isPlaying:
         for i in range(0, len(agents)):
             agents[i].display()
-            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
             if isTopicFollowing:
                 agents[i].topicFollow()
+            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
     else:
         for i in range(0, len(agents)):
             agents[i].applyBehaviour(agents, myMouse)
             agents[i].borders()
             agents[i].update()
             agents[i].display()
-            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
             if isTopicFollowing:
                 agents[i].topicFollow()
+            agents[i].detailDisplay(myMouse=myMouse, agents=agents)
 
 
 if __name__ == '__main__':

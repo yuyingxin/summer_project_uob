@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Agent.py" description="        steerBor = PVector(0, 0)&#10;        if self.l..." line="206" />
-    <bookmark url="file://$PROJECT_DIR$/Utils.py" description="        url_articles.append(articles['articles'][i..." line="47" />
+    <bookmark url="file://$PROJECT_DIR$/Agent.py" description="        steerBor = PVector(0, 0)&#10;        if self.l..." line="209" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05919ed-2c9c-47d1-8bd0-2fa02541518e" name="Default" comment="Change interface for alter representation">
+    <list default="true" id="e05919ed-2c9c-47d1-8bd0-2fa02541518e" name="Default" comment="Delete useless files (some trials) and">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Agent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ant.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Branch.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hill.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/Interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Leaf.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mover.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewsRetriever.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PathFinder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tree.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/attribs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/colors.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/constants.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/fbo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/flippolicy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/fonts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/globs.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/lights.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/materials.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/mathfunctions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/pimage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/primitives.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/pvector.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/shapes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyprocessing/transformations.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirement" beforeDir="false" afterPath="$PROJECT_DIR$/requirement" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Walker.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/feature_extraction.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test005.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test006.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test008.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test009.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test010.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test011.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test013.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,25 +37,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
+            <state relative-caret-position="19">
+              <caret line="19" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Interface.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Interface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1121">
-              <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="29" selection-end-column="61" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -66,8 +52,8 @@
       <file leaf-file-name="Utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="152">
+              <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -75,11 +61,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Agent.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Agent.py">
+      <file leaf-file-name="Interface.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Interface.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="271" column="43" selection-start-line="271" selection-start-column="43" selection-end-line="271" selection-end-column="43" />
+            <state relative-caret-position="171">
+              <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -136,7 +125,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="keyword_search_offline" />
       </map>
     </option>
   </component>
@@ -182,10 +171,10 @@
         <option value="$PROJECT_DIR$/test013.py" />
         <option value="$PROJECT_DIR$/test012.py" />
         <option value="D:/Program Files (x86)/Lib/pyprocessing/pvector.py" />
-        <option value="$PROJECT_DIR$/Interface.py" />
-        <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/Utils.py" />
         <option value="$PROJECT_DIR$/Agent.py" />
+        <option value="$PROJECT_DIR$/Interface.py" />
+        <option value="$PROJECT_DIR$/Utils.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
   </component>
@@ -212,11 +201,6 @@
               <item name="002" type="b2602c69:ProjectViewProjectNode" />
               <item name="002" type="47feb1d3:ProjectViewModuleNode" />
               <item name="002" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="002" type="b2602c69:ProjectViewProjectNode" />
-              <item name="002" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="002" type="b2602c69:ProjectViewProjectNode" />
@@ -410,48 +394,61 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75628144" weight="0.23524657" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="R Packages" order="4" />
-      <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5003903" side_tool="true" weight="0.3298969" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.3297491" />
-      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3298969" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3297491" />
+      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3297491" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2580645" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36200717" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75628144" visible="true" weight="0.20937753" />
+      <window_info anchor="right" id="R Packages" order="4" weight="0.32983023" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3297491" />
       <window_info id="Structure" order="1" sideWeight="0.24310777" side_tool="true" weight="0.18674211" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32616487" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.53763443" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.3297491" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75628144" weight="0.23524657" />
+      <window_info id="Structure" order="1" sideWeight="0.24310777" side_tool="true" weight="0.18674211" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2580645" />
       <window_info anchor="bottom" id="Inspection Results" order="10" weight="0.3298969" />
+      <window_info anchor="right" id="R Packages" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.53763443" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5003903" side_tool="true" weight="0.3298969" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32616487" />
+      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3298969" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2647585" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75628144" visible="true" weight="0.19320938" />
       <window_info id="Structure" order="1" sideWeight="0.24310777" side_tool="true" weight="0.18674211" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2647585" />
       <window_info anchor="bottom" id="Inspection Results" order="10" weight="0.3298969" />
       <window_info anchor="right" id="R Packages" order="4" />
-      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3298969" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.49731663" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3291592" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5003903" side_tool="true" weight="0.3298969" />
-      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49960968" weight="0.3298969" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -714,9 +711,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-column="27" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -737,48 +731,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Interface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1121">
-          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="29" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Program Files (x86)/Lib/site-packages/pyprocessing/flippolicy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1862" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="32" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="32" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://D:/Program Files (x86)/Lib/site-packages/pyprocessing/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="375" column="42" selection-start-line="375" selection-start-column="42" selection-end-line="375" selection-end-column="42" />
-          <folding>
-            <element signature="e#2062#2108#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -791,8 +752,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Agent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="271" column="43" selection-start-line="271" selection-start-column="43" selection-end-line="271" selection-end-column="43" />
+        <state relative-caret-position="171">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Interface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="19" column="48" selection-start-line="19" selection-start-column="48" selection-end-line="19" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

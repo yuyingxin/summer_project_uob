@@ -9,10 +9,11 @@ from watson_developer_cloud.natural_language_understanding_v1 \
 import urllib.request
 from News import News
 from PIL import Image
+import json
 
 
 def labelDisplay(emotionCount):
-    textSize(10)
+    textSize(12)
     fill(120, 225, 255)
     text("Sadness: {0}".format(emotionCount[0]), 5, 15)
     fill(255, 167, 0)
@@ -25,11 +26,14 @@ def labelDisplay(emotionCount):
     text("Anger: {0}".format(emotionCount[4]), 5, 75)
 
 
-def getNews(articleNum, dateFrom, dateTo):
-    # url_articles = []
-    # title_articles = []
-    # image_articles = []
+def getNews(articleNum, keywordSearch, dateFrom, dateTo):
     newsList = []
+
+    if keywordSearch == '':
+        sortBy = 'popularity'
+        keywordSearch = None
+    else:
+        sortBy = 'relevancy'
 
     # Extracting news articles from google news api
     # Setting up request and requesting (google news api)
@@ -37,17 +41,15 @@ def getNews(articleNum, dateFrom, dateTo):
     articles = newsApi.get_everything(sources='bbc-news',  # limit search by source index (in documentation)
                                       from_param=dateFrom,
                                       to=dateTo,
+                                      q=keywordSearch,
                                       language='en',
-                                      sort_by='popularity',
+                                      sort_by=sortBy,
                                       page_size=articleNum,
                                       page=1)
 
     # Parsing url of each article from response
     for i in range(0, len(articles['articles'])):
         news = News(articles['articles'][i]['title'], articles['articles'][i]['url'], articles['articles'][i]['urlToImage'])
-        # url_articles.append(articles['articles'][i]['url'])
-        # title_articles.append(articles['articles'][i]['title'])
-        # image_articles.append(articles['articles'][i]['urlToImage'])
         newsList.append(news)
 
     # return url_articles, title_articles, image_articles
@@ -110,36 +112,52 @@ def textAnalyse(url, natural_language_understanding):
 
 
 def downloader(url, index):
-    path = 'downloads'
-    if not os.path.exists(path):
-        os.mkdir(path)
+    global downloadPath
+    # If download path is not existed, make a new one
+    if not os.path.exists(downloadPath):
+        os.mkdir(downloadPath)
+    # Name the image files according to the index of them
     fileName = str(index).zfill(3) + '.PNG'
-    path = '{}{}{}'.format(path, os.sep, fileName)
+    # Generate the file path
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    # If the file is already existed, delete it to avoid the history remains
+    if os.path.exists(filePath):
+        os.remove(filePath)
+
     opener = urllib.request.build_opener()
     opener.addheaders = [('User-Agent',
                           'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0')]
     urllib.request.install_opener(opener)
     try:
-        urllib.request.urlretrieve(url=url, filename=path)
+        urllib.request.urlretrieve(url=url, filename=filePath)
     except urllib.error.HTTPError:
         print("Agent", index, "have no image!")
 
-    return path
+    return filePath
 
 
-def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo):
+def featureExtract(natural_language_understanding, articleNum, keywordSearch, dateFrom, dateTo):
     """
     Extracting features from news (including retrieving news articles and analysing them by api)
     :param natural_language_understanding: credentials of IBM api
     :param articleNum: number of news articles that needs to be retrieved
     :param dateFrom: starting date of news
     :param dateTo: ending date of news
+    :param keywordSearch: the keyword that user search for
     :return: 1.emotional status of each article, 2.entities and 3.its relevance of each article,
     4.paths of saved images of each article, 5.titles of each articles
     """
-    # Retrieve news (url, title and image) from google api
-    newsList = getNews(articleNum, dateFrom, dateTo)
+    # Initialize download file path
+    global downloadPath
+    downloadPath = 'downloads'
 
+    # Retrieve news (url, title and image) from google api
+    newsList = getNews(articleNum, keywordSearch, dateFrom, dateTo)
+
+    if len(newsList) < articleNum:
+        articleNum = len(newsList)
+
+    # Download images and return saved path
     titles = []
     for i in range(0, articleNum):
         titles.append(newsList[i].title)
@@ -157,6 +175,22 @@ def featureExtract(natural_language_understanding, articleNum, dateFrom, dateTo)
     responses = [pool.apply(textAnalyse, args=(newsList[i].url, natural_language_understanding))
                  for i in range(0, articleNum)]
     print("Time cost on text analyse:" + str(datetime.datetime.now() - t))  # Print the time cost
+
+    # Create the path of saved file
+    filePathTitle = initSavedPath(fileName="titles.txt")
+    filePathResponses = initSavedPath(fileName="response_file.json")
+
+    # Save title list on local
+    titleFile = open(filePathTitle, "w", encoding='utf-8')
+    for title in titles:
+        titleFile.write(title)
+        titleFile.write('\n')
+    titleFile.close()
+
+    # Save response .json file on local
+    resFile = open(filePathResponses, "a")
+    resFile.write(json.dumps(responses))
+    resFile.close()
 
     # emotionList: 2-d list, each list inside is an article and elements inside is the scores on each emotional type
     emotionList = parsingEmotion(responses)
@@ -192,3 +226,15 @@ def compressImage(imagePaths):
             dImg = img.resize((int(w), h), Image.ANTIALIAS)
             dImg.save(path)
 
+
+def initSavedPath(fileName):
+    # Create the downloads file
+    global downloadPath
+    if not os.path.exists(downloadPath):
+        os.mkdir(downloadPath)
+    # Initialize the download path
+    filePath = '{}{}{}'.format(downloadPath, os.sep, fileName)
+    # Clear history (online version only)
+    # if os.path.exists(filePath):
+    #     os.remove(filePath)
+    return filePath

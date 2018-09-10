@@ -1,6 +1,9 @@
 from pyprocessing import *
 import random
 
+"""
+The class 'Agent' is inspired and modified by the class 'boid' from the example of Processing by by Daniel Shiffman.
+"""
 
 class Agent:
     def __init__(self, group, emotionLevel, title, imagePath, entity):
@@ -237,28 +240,28 @@ class Agent:
             self.count[1] = 0
             self.count[2] = 0
             self.count[3] = 0
-            print(self.count[0])
+
         if self.location.y < -self.radius:
             self.velocity.y = -1 * self.velocity.y
             self.count[0] = 0
             self.count[1] += 1
             self.count[2] = 0
             self.count[3] = 0
-            print(self.count[1])
+
         if self.location.x > width + self.radius:
             self.velocity.x = -1 * self.velocity.x
             self.count[0] = 0
             self.count[1] = 0
             self.count[2] += 1
             self.count[3] = 0
-            print(self.count[2])
+
         if self.location.y > height + self.radius:
             self.velocity.y = -1 * self.velocity.y
             self.count[0] = 0
             self.count[1] = 0
             self.count[2] = 0
             self.count[3] += 1
-            print(self.count[3])
+
         if max(self.count) > 100:
             self.__init__(self.group, self.emotionLevel, self.title, self.imagePath, self.entity)
             del self
@@ -296,14 +299,18 @@ class Agent:
                     line(self.location.x, self.location.y, width/2-img.width//2, height/2+img.height/2)
                     line(self.location.x, self.location.y, width/2+img.width//2, height/2+img.height/2)
                     noStroke()
-                textAlign(CENTER, TOP)
                 fill(color(self.r, self.g, self.b))
-                textSize(12)
-                text(self.title, width/2, height/2+120)
-                textAlign(LEFT, BASELINE)
+                textSize(15)
+                if textWidth(self.title) < 400:
+                    textAlign(CENTER, TOP)
+                    text(self.title, width/2, height/2+80)
+                    textAlign(LEFT, BASELINE)
+                else:
+                    text(self.title, width/2-200, height/2+80, width/2+100, height/2+150)
 
     def topicFollow(self):
         textSize(8)
+        fill(100)
         if self.entity is not None:
             text(self.entity, self.location.x, self.location.y)
 

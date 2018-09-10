@@ -1,6 +1,7 @@
 import os
 import shutil
 
+from PyQt5.QtGui import QValidator, QIntValidator
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton, QLineEdit, QLabel, QGroupBox, QGridLayout, \
     QVBoxLayout, QHBoxLayout, QGroupBox
 from PyQt5.QtCore import pyqtSlot, Qt
@@ -30,10 +31,15 @@ class Interface(QWidget):
         self.edMonthTo = QLineEdit(str(today.month).zfill(2))
         self.edDayTo = QLineEdit(str(today.day).zfill(2))
 
-        self.edArticleNum = QLineEdit("20")
+        self.edArticleNum = QLineEdit("30")
+        validator = QIntValidator(0, 50)
+        self.edArticleNum.setValidator(validator)
+
+        self.edKeywordSearch = QLineEdit("")
+        # self.edKeywordSearch.setDisabled(True)
 
         self.gbDate = QGroupBox("Date")
-        self.gbNum = QGroupBox("Parameters")
+        self.gbNum = QGroupBox("Input")
         self.hbCreate = QHBoxLayout()
         self.initUI()
 
@@ -91,11 +97,14 @@ class Interface(QWidget):
     def createGridLayoutNum(self):
         # The gird layout of inputting other parameters
         grid = QGridLayout()
-        grid.setColumnStretch(0, 5)
+        grid.setColumnStretch(0, 3)
         grid.setColumnStretch(1, 1)
 
-        grid.addWidget(QLabel("News articles:"), 0, 0)
+        grid.addWidget(QLabel("News articles (max: 50):"), 0, 0)
         grid.addWidget(self.edArticleNum, 0, 1)
+
+        grid.addWidget(QLabel("Keyword search"), 1, 0)
+        grid.addWidget(self.edKeywordSearch, 1, 1)
 
         self.gbNum.setLayout(grid)
 
