@@ -6,12 +6,12 @@ class PathFinder:
 
     paths = []
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         if parent is None:
             self.location = PVector(width/2, height)
             self.lastLocation = PVector(self.location.x, self.location.y)
             self.velocity = PVector(0, -10)
-            self.diameter = random.uniform(20, 30)
+            self.diameter = random.uniform(8, 12)
             self.isFinished = False
         else:
             self.location = parent.location.get()
@@ -40,13 +40,13 @@ class PathFinder:
                 # print("lastLocation - in update:", self.lastLocation)
                 self.location.add(self.velocity)
                 # print("location - in update:", self.location)
-                if self.diameter < 5 and random.uniform(0, 1) < 0.2:
+                if self.diameter < 8 and random.uniform(0, 1) < 0.2:
                     noStroke()
                     fill(102, 194, 255, 100)    # color of leaves (163, 255, 102)
-                    ellipse(self.location.x, self.location.y, 20, 20)
+                    ellipse(self.location.x, self.location.y, 10, 10)
                     # stroke(136, 54, 0, 200)
                     fill(196)   # color of branches
-                if random.uniform(0, 1) < 0.05:
+                if random.uniform(0, 1) < 0.07:
                     path = PathFinder(self)
                     PathFinder.paths.append(path)
                     # fill(255, 0, 0, 200)    # color of flowers

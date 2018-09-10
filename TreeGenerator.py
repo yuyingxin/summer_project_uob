@@ -6,14 +6,14 @@ from PathFinder import PathFinder
 #def generator(index_doc):
 
 def setup():
-    size(800, 600)
+    size(400, 300)
     background(0)
     # frameRate(10)
     ellipseMode(CENTER)
     stroke(136, 54, 0, 200)
     smooth()
     global num
-    num = 2
+    num = 4
     # count = 0
     for i in range(0, num):
         path = PathFinder()
@@ -34,7 +34,8 @@ def draw():
         # line(lastLoc.x, lastLoc.y, loc.x, loc.y)
         PathFinder.paths[i].update()
 
-def mousePressed():
+
+def keyPressed():
     background(0)
     global num
     PathFinder.paths = []
