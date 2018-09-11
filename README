@@ -1,0 +1,16 @@
+This the code of my summer project.
+
+Run Main.py to use the software.
+
+Date period, number of article retrieved and keywords can be input to manipulate the visualization.
+
+The offline version can only input keyword of 'china' and 'weather'
+'downloads_china_offline' is the pre-download data for searching 'china'
+'downloads_weather_offline' is the pre-download data for searching 'weather'
+
+The online version take quite a lot of time. Be patient.
+
+'pyprocessing' is a library from web.
+
+pip install -r requirement
+
